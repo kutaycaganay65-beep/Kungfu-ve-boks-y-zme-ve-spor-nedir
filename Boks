@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NİHAİ ÜÇLÜ KONSOLU • 0 = 0 Senkro Matriksi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            900: '#030305',
+                            800: '#0a0e17',
+                            700: '#131c2e',
+                            600: '#1e293b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030305;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .glass-card {
+            background: rgba(13, 17, 28, 0.85);
+            border: 1px solid rgba(51, 65, 85, 0.35);
+            backdrop-filter: blur(16px);
+        }
+        .glow-red { box-shadow: 0 0 25px rgba(239, 68, 68, 0.15); }
+        .glow-emerald { box-shadow: 0 0 25px rgba(16, 185, 129, 0.2); }
+        input[type="range"] { accent-color: #ef4444; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #030305; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen p-4 sm:p-6 lg:p-8 flex flex-col items-center justify-center">
+
+    <main class="max-w-2xl w-full space-y-6">
+
+        <!-- HEADER & PHILOSOPHY BANNER -->
+        <header class="glass-card p-6 rounded-3xl text-center space-y-3 glow-red transition-all duration-500">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/40 border border-red-500/30 text-xs text-red-400 font-bold mono tracking-widest">
+                <span>⚡ 0 = 0 MASTER SENKRO KONSOLU</span>
+            </div>
+            <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">İnsan Odaklı Uç Nokta Matriksi</h1>
+            <p id="philosophyQuote" class="text-xs sm:text-sm text-slate-400 italic font-medium px-4">
+                "Asıl engel bedende değil, zihindedir. Yürümek ayakla değil, yürekteki iradeyle olur."
+            </p>
+        </header>
+
+        <!-- DISCIPLINE SLIDERS SECTION -->
+        <section class="glass-card p-6 sm:p-8 rounded-3xl space-y-6 shadow-xl">
+            <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 mono">Fiziksel Parametre Kontrolleri</h2>
+                <span id="totalSumBadge" class="text-xs mono font-bold px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-emerald-400">Σ = 100%</span>
+            </div>
+            
+            <!-- KUNG FU -->
+            <div class="space-y-2">
+                <div class="flex justify-between text-xs font-bold mono">
+                    <span class="text-red-400 flex items-center gap-1.5">🥋 KUNG FU <span class="text-slate-500 font-normal">(Merkez & Denge)</span></span>
+                    <span id="valKungfu" class="text-white text-sm">33%</span>
+                </div>
+                <input type="range" id="rangeKungfu" min="0" max="100" value="33" class="w-full h-2.5 bg-slate-900 rounded-lg cursor-pointer transition" oninput="updateMatrix()">
+            </div>
+
+            <!-- BOKS -->
+            <div class="space-y-2">
+                <div class="flex justify-between text-xs font-bold mono">
+                    <span class="text-yellow-400 flex items-center gap-1.5">🥊 BOKS <span class="text-slate-500 font-normal">(Patlama & Hız)</span></span>
+                    <span id="valBoxing" class="text-white text-sm">33%</span>
+                </div>
+                <input type="range" id="rangeBoxing" min="0" max="100" value="33" class="w-full h-2.5 bg-slate-900 rounded-lg cursor-pointer transition" oninput="updateMatrix()">
+            </div>
+
+            <!-- YÜZME -->
+            <div class="space-y-2">
+                <div class="flex justify-between text-xs font-bold mono">
+                    <span class="text-blue-400 flex items-center gap-1.5">🏊 YÜZME <span class="text-slate-500 font-normal">(Akış & Direnç)</span></span>
+                    <span id="valSwimming" class="text-white text-sm">34%</span>
+                </div>
+                <input type="range" id="rangeSwimming" min="0" max="100" value="34" class="w-full h-2.5 bg-slate-900 rounded-lg cursor-pointer transition" oninput="updateMatrix()">
+            </div>
+        </section>
+
+        <!-- REAL-TIME STATUS & DELTA CARD -->
+        <section id="statusCard" class="glass-card p-6 sm:p-8 rounded-3xl text-center space-y-4 transition-all duration-300 shadow-xl border-emerald-500/40 bg-emerald-950/10">
+            <div id="statusIcon" class="text-4xl animate-bounce">⚡</div>
+            <div class="space-y-1">
+                <h3 id="statusTitle" class="text-lg sm:text-xl font-extrabold text-white">Kusursuz Uç Nokta Senkrosu (0 = 0)!</h3>
+                <div id="statusDelta" class="text-xs font-bold text-emerald-400 mono">Sapma Katsayısı (Δ): 2 (İdeal Denge)</div>
+            </div>
+            <p id="statusDesc" class="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed max-w-md mx-auto">
+                Tüm disiplinler kilitlendi. Adam adamadır, zihin ve irade tam senkronizasyonda.
+            </p>
+        </section>
+
+        <!-- QUICK ACTION BUTTONS -->
+        <nav class="grid grid-cols-1 sm:grid-cols-2 gap-3" aria-label="Hızlı Kontroller">
+            <button onclick="applyPreset('sync')" class="py-3.5 px-4 rounded-2xl bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white font-bold text-xs mono tracking-wider transition shadow-lg shadow-red-950/50 flex items-center justify-center gap-2">
+                ⚡ Kusursuz Senkro (0=0)
+            </button>
+            <button onclick="applyPreset('power')" class="py-3.5 px-4 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 text-slate-300 font-bold text-xs mono tracking-wider transition flex items-center justify-center gap-2">
+                🔥 Patlama Modu (Boks Odaklı)
+            </button>
+        </nav>
+
+        <div class="flex gap-3">
+            <button onclick="saveMatrixState()" class="flex-1 py-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 text-emerald-400 font-bold text-xs mono tracking-wider transition flex items-center justify-center gap-2">
+                💾 Matrisi Kaydet (LocalStorage)
+            </button>
+            <button onclick="resetMatrix()" class="px-6 py-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 text-slate-400 font-bold text-xs mono tracking-wider transition">
+                Sıfırla
+            </button>
+        </div>
+
+        <!-- FOOTER BRANDING & HUMAN TOUCH -->
+        <footer class="text-center text-xs text-slate-500 mono space-y-1 pt-4">
+            <p>"Önce kendini kontrol et, sonra hareketini kontrol et."</p>
+            <p class="text-slate-600">İnsandan insana, adamdan adama net sistem.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        const quotes = [
+            "Asıl engel bedende değil, zihindedir. Yürümek ayakla değil, yürekteki iradeyle olur.",
+            "Duvarları inanç yıkar, engelleri azim aşar. Net irade asla yenilmez.",
+            "Güç kontrol altında olduğunda, nefesle birleştiğinde gerçek değere dönüşür.",
+            "Adam adamadır, teşko tanımaz. Suyu bölen irade karada da kilitlenir."
+        ];
+
+        function updateMatrix(save = true) {
+            let k = parseInt(document.getElementById('rangeKungfu').value);
+            let b = parseInt(document.getElementById('rangeBoxing').value);
+            let s = parseInt(document.getElementById('rangeSwimming').value);
+
+            let total = k + b + s;
+            if(total === 0) total = 1;
+
+            let pk = Math.round((k / total) * 100);
+            let pb = Math.round((b / total) * 100);
+            let ps = 100 - (pk + pb);
+
+            // Delta sapma hesaplaması
+            let delta = Math.abs(pk - pb) + Math.abs(pb - ps) + Math.abs(ps - pk);
+
+            document.getElementById('valKungfu').textContent = pk + '%';
+            document.getElementById('valBoxing').textContent = pb + '%';
+            document.getElementById('valSwimming').textContent = ps + '%';
+            document.getElementById('totalSumBadge').textContent = "Σ = " + (pk + pb + ps) + "%";
+
+            const card = document.getElementById('statusCard');
+            const title = document.getElementById('statusTitle');
+            const deltaText = document.getElementById('statusDelta');
+            const desc = document.getElementById('statusDesc');
+            const icon = document.getElementById('statusIcon');
+            const quoteEl = document.getElementById('philosophyQuote');
+
+            deltaText.textContent = "Sapma Katsayısı (Δ): " + delta;
+
+            if(delta < 6) {
+                card.className = "glass-card p-6 sm:p-8 rounded-3xl text-center space-y-4 transition-all duration-300 shadow-xl border-emerald-500/40 bg-emerald-950/10 glow-emerald";
+                icon.textContent = "⚡";
+                title.textContent = "Kusursuz Uç Nokta Senkrosu (0 = 0)!";
+                deltaText.className = "text-xs font-bold text-emerald-400 mono";
+                desc.textContent = "Tüm disiplinler kilitlendi. Kung Fu, Boks ve Yüzme kusursuz bir uyum içinde. Zihin ve irade tam denge.";
+            } else if(pk >= pb && pk >= ps) {
+                card.className = "glass-card p-6 sm:p-8 rounded-3xl text-center space-y-4 transition-all duration-300 shadow-xl border-red-500/40 bg-red-950/10 glow-red";
+                icon.textContent = "🥋";
+                title.textContent = "Kung Fu (Merkez & Denge) Baskın";
+                deltaText.className = "text-xs font-bold text-red-400 mono";
+                desc.textContent = "Omurga sabit, eksen kilitli. Denge üst seviyede; zihinsel duruş bedeni yönetiyor.";
+            } else if(pb >= pk && pb >= ps) {
+                card.className = "glass-card p-6 sm:p-8 rounded-3xl text-center space-y-4 transition-all duration-300 shadow-xl border-yellow-500/40 bg-yellow-950/10";
+                icon.textContent = "🥊";
+                title.textContent = "Boks (Patlama & Hız) Baskın";
+                deltaText.className = "text-xs font-bold text-yellow-400 mono";
+                desc.textContent = "Teşko tanımaz refleks, anlık reaksiyon ve üst düzey güç aktarımı devrede.";
+            } else {
+                card.className = "glass-card p-6 sm:p-8 rounded-3xl text-center space-y-4 transition-all duration-300 shadow-xl border-blue-500/40 bg-blue-950/10";
+                icon.textContent = "🏊‍♂️";
+                title.textContent = "Yüzme (Akış & Direnç) Baskın";
+                deltaText.className = "text-xs font-bold text-blue-400 mono";
+                desc.textContent = "Su direnci yenildi, ritmik nefes döngüsü ve anaerobik dayanıklılık mühürlendi.";
+            }
+
+            // Rastgele felsefi söz değişimi
+            quoteEl.textContent = `"${quotes[Math.floor(Math.random() * quotes.length)]}"`;
+
+            if(save) {
+                localStorage.setItem('k_matris_v2', k);
+                localStorage.setItem('b_matris_v2', b);
+                localStorage.setItem('s_matris_v2', s);
+            }
+        }
+
+        function applyPreset(mode) {
+            if(mode === 'sync') {
+                document.getElementById('rangeKungfu').value = 33;
+                document.getElementById('rangeBoxing').value = 33;
+                document.getElementById('rangeSwimming').value = 34;
+            } else if(mode === 'power') {
+                document.getElementById('rangeKungfu').value = 20;
+                document.getElementById('rangeBoxing').value = 70;
+                document.getElementById('rangeSwimming').value = 10;
+            }
+            updateMatrix();
+        }
+
+        function saveMatrixState() {
+            updateMatrix();
+            showNotification("Matris durumu tarayıcı hafızasına (localStorage) başarıyla kaydedildi!");
+        }
+
+        function resetMatrix() {
+            document.getElementById('rangeKungfu').value = 50;
+            document.getElementById('rangeBoxing').value = 25;
+            document.getElementById('rangeSwimming').value = 25;
+            updateMatrix();
+        }
+
+        function showNotification(msg) {
+            const notif = document.createElement('div');
+            notif.className = "fixed bottom-6 right-6 glass-card px-5 py-3 rounded-2xl border-emerald-500/50 text-emerald-400 font-bold text-xs mono z-50 shadow-2xl animate-pulse";
+            notif.textContent = msg;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 2500);
+        }
+
+        window.onload = function() {
+            if(localStorage.getItem('k_matris_v2') !== null) {
+                document.getElementById('rangeKungfu').value = localStorage.getItem('k_matris_v2');
+                document.getElementById('rangeBoxing').value = localStorage.getItem('b_matris_v2');
+                document.getElementById('rangeSwimming').value = localStorage.getItem('s_matris_v2');
+                updateMatrix(false);
+            }
+        }
+    </script>
+</body>
+</html>
