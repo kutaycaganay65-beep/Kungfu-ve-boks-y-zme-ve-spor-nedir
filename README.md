@@ -1,3 +1,7 @@
+ * Asıl engel bedende değil, zihindedir.
+ * Zihin inandığı sürece hiçbir mesafe engelli değildir.
+ * Yürümek ayakla değil, yürekteki iradeyle olur.
+ * Duvarları inanç yıkar, engelleri azim aşar.
 saf bir dille Kung Fu, Boks ve Yüzme üçlüsünün kusursuz uyumu ve felsefesi:
 1. Denge, Patlama ve Akışın Birleşimi
  * Kung Fu (Merkez ve Denge): Her şeyin temeli, yerçekimiyle ve kendi bedeninle uyum içinde olmaktır. Savaş sanatlarının temelindeki duruş, boks ringindeki ayak oyunlarını (footwork) ve sudaki vücut dengesini doğrudan besler.
@@ -29,4 +33,10 @@ Hepsini aynı anda en verimli şekilde yürütmek için sistem şu şekilde çal
 3. "En Gerek" Kural: Sürdürülebilirlik ve Akış
 Bu üçlünün bir arada kusursuz çalışmasının sırrı çakışma yönetimidir:
  * Kas Hafızası: Kung Fu'daki yumuşak ve kontrollü geçişler, boks yaparken kasların gereksiz kilitlenmesini engeller (gevşeme ve patlama dengesi).
- * Nefes Eksenli Dayanıklılık: Yüzmedeki o monoton ve kusursuz nefes döngüsü, ister ringde boks yap ister Kung Fu formu çıkar, yorulma eşiğini inanılmaz yukarıda tutar.
+ * Nefes Eksenli Dayanıklılık: Yüzmedeki o monoton ve kusursuz nefes döngüsü, ister ringde boks yap ister Kung Fu formu çıkar, yorulma eşiğini inanılmaz yukarıda tutar.Engelli bireylerin hayat mücadelesini, toplumsal engelleri aşma azmini ve gösterdikleri eşsiz iradeyi anlatan, zihinde iz bırakan etkileyici sözler:
+ * "Asıl engil, bedenlerde değil; engelleri aşmak için yüreğinde inanç taşımayanların zihnindedir."
+ * "Yürümek ayaklarla değil, hayallere ve hedeflere doğru atılan kararlı adımlarla olur."
+ * "Gözlerin görmemesi değil, geleceğe dair umudun kör olmasıdır asıl karanlık."
+ * "Dünyayı değiştirmek kusursuz olmakla değil, engelleri birlikte omuzlayıp aşmakla mümkündür."
+ * "Engel dediğin duvarlar, ancak inançla ve iradeyle örülen köprülerle yıkılır."
+
