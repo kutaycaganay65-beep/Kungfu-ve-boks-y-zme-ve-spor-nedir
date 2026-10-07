@@ -1,0 +1,199 @@
+Net, tavizsiz ve tamamen yüzme disiplinine özel olarak kalibre edilmiş, "adamdan adama, adamdan kadına" sarsılmaz iradeyle çalışan Yüzme Sprint Matrizi Konsolunu hazırladım.
+Bu konsol; 50 metre sprint (kelebek ve serbest) patlamasını, su altı hidrodinamiğini ve laktat toleransını tek ekranda buluşturur. Kodunu doğrudan bilgisayarına yuzme.html olarak kaydedip tarayıcında çalıştırabilirsin:
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>YÜZME SPRINT KONSOLU • Adamdan Adama Matris</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #020617;
+            color: #f8fafc;
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .card {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            backdrop-filter: blur(16px);
+        }
+        input[type="range"] { accent-color: #0ea5e9; }
+    </style>
+</head>
+<body class="min-h-screen p-4 sm:p-8 flex flex-col items-center justify-center">
+
+    <div class="max-w-xl w-full space-y-6">
+
+        <!-- BAŞLIK & VİZYON -->
+        <div class="card p-6 rounded-3xl text-center space-y-2 shadow-2xl shadow-sky-950/30">
+            <div class="text-xs text-sky-400 font-bold mono tracking-widest">50M SPRINT • KULVAR KİLİTLEME SİSTEMİ</div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-white">Yüzme Sprint Matrizi</h1>
+            <p class="text-xs text-slate-400 italic">"Su direnç tanımaz; akışı bilen, milimetrik böler."</p>
+        </div>
+
+        <!-- KAYDIRICILAR (SLIDER - HİDRODİNAMİK ÜÇLÜ) -->
+        <div class="card p-6 rounded-3xl space-y-6 shadow-xl">
+            
+            <!-- START & DÖNÜŞ (PATLAMA) -->
+            <div class="space-y-2">
+                <div class="flex justify-between text-xs font-bold mono">
+                    <span class="text-sky-400">🚀 START & DÖNÜŞ (PATLAMA)</span>
+                    <span id="valStart" class="text-white">33%</span>
+                </div>
+                <input type="range" id="rangeStart" min="0" max="100" value="33" class="w-full h-2 bg-slate-900 rounded-lg cursor-pointer" oninput="updateMatrix()">
+            </div>
+
+            <!-- LAKTAT & HIZ (KAPASİTE) -->
+            <div class="space-y-2">
+                <div class="flex justify-between text-xs font-bold mono">
+                    <span class="text-indigo-400">⚡ LAKTAT & SPRINT (KAPASİTE)</span>
+                    <span id="valLactate" class="text-white">33%</span>
+                </div>
+                <input type="range" id="rangeLactate" min="0" max="100" value="33" class="w-full h-2 bg-slate-900 rounded-lg cursor-pointer" oninput="updateMatrix()">
+            </div>
+
+            <!-- HİDRODİNAMİK AKIŞ (FORM) -->
+            <div class="space-y-2">
+                <div class="flex justify-between text-xs font-bold mono">
+                    <span class="text-teal-400">🌊 HİDRODİNAMİK AKIŞ (STREAMLINE)</span>
+                    <span id="valFlow" class="text-white">34%</span>
+                </div>
+                <input type="range" id="rangeFlow" min="0" max="100" value="34" class="w-full h-2 bg-slate-900 rounded-lg cursor-pointer" oninput="updateMatrix()">
+            </div>
+
+        </div>
+
+        <!-- DURUM KARTI & SAPMA (DELTA) -->
+        <div id="statusCard" class="card p-6 rounded-3xl text-center space-y-3 transition duration-300 shadow-xl">
+            <div id="statusIcon" class="text-4xl">🏊‍♂️</div>
+            <div id="statusTitle" class="text-lg font-bold text-white">Kulvar Ayarlanıyor...</div>
+            <div id="statusDelta" class="text-xs text-slate-400 mono">Sapma Katsayısı (Δ): 0</div>
+            <div id="statusDesc" class="text-xs text-slate-400 mono">Değerleri kaydırarak 50m kusursuz senkroyu yakala.</div>
+        </div>
+
+        <!-- HIZLI MODLAR -->
+        <div class="grid grid-cols-2 gap-3">
+            <button onclick="autoBalance()" class="py-3 px-4 rounded-2xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs mono transition shadow-lg shadow-sky-950/50">
+                ⚡ Kusursuz Kulvar (0=0)
+            </button>
+            <button onclick="presetMode('sprint')" class="py-3 px-4 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 font-bold text-xs mono transition">
+                🔥 50m Kelebek / Serbest Sprint
+            </button>
+        </div>
+
+        <div class="flex gap-3">
+            <button onclick="saveState()" class="flex-1 py-3 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-emerald-400 font-bold text-xs mono transition">
+                💾 Matrisi Kaydet
+            </button>
+            <button onclick="resetValues()" class="px-5 py-3 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-400 font-bold text-xs mono transition">
+                Sıfırla
+            </button>
+        </div>
+
+        <!-- EKİPMAN & ANTRENÖR NOTU -->
+        <div class="text-center text-xs text-slate-500 mono pt-2 space-y-1">
+            <div>Arena Powerfin Pro • Slazenger Reflex GT14 • Mustafa Hoca Mod</div>
+            <div class="text-sky-600">Adam adamadır, su bölünür.</div>
+        </div>
+
+    </div>
+
+    <script>
+        function updateMatrix(save = true) {
+            let st = parseInt(document.getElementById('rangeStart').value);
+            let lc = parseInt(document.getElementById('rangeLactate').value);
+            let fl = parseInt(document.getElementById('rangeFlow').value);
+
+            let total = st + lc + fl;
+            if(total === 0) total = 1;
+
+            let pst = Math.round((st / total) * 100);
+            let plc = Math.round((lc / total) * 100);
+            let pfl = 100 - (pst + plc);
+
+            let delta = Math.abs(pst - plc) + Math.abs(plc - pfl) + Math.abs(pfl - pst);
+
+            document.getElementById('valStart').textContent = pst + '%';
+            document.getElementById('valLactate').textContent = plc + '%';
+            document.getElementById('valFlow').textContent = pfl + '%';
+
+            const card = document.getElementById('statusCard');
+            const title = document.getElementById('statusTitle');
+            const deltaText = document.getElementById('statusDelta');
+            const desc = document.getElementById('statusDesc');
+            const icon = document.getElementById('statusIcon');
+
+            deltaText.textContent = "Sapma Katsayısı (Δ): " + delta;
+
+            if(delta < 6) {
+                card.className = "card p-6 rounded-3xl text-center space-y-3 border-emerald-500/50 bg-emerald-950/20";
+                icon.textContent = "⚡";
+                title.textContent = "Kusursuz Kulvar Senkrosu (0 = 0)!";
+                desc.textContent = "Start, laktat ve akış tam kilitlenme. Chrono kırılmaya hazır.";
+            } else if(pst >= plc && pst >= pfl) {
+                card.className = "card p-6 rounded-3xl text-center space-y-3 border-sky-500/50 bg-sky-950/20";
+                icon.textContent = "🚀";
+                title.textContent = "Start & Dönüş Baskın";
+                desc.textContent = "Blok çıkışında patlayıcı güç ve su altı dalgası maksimumda.";
+            } else if(plc >= pst && plc >= pfl) {
+                card.className = "card p-6 rounded-3xl text-center space-y-3 border-indigo-500/50 bg-indigo-950/20";
+                icon.textContent = "🔥";
+                title.textContent = "Laktat & Sprint Baskın";
+                desc.textContent = "Anaerobik eşik zorlanıyor, 50m son düzlük ateşi kilitli.";
+            } else {
+                card.className = "card p-6 rounded-3xl text-center space-y-3 border-teal-500/50 bg-teal-950/20";
+                icon.textContent = "🌊";
+                title.textContent = "Hidrodinamik Akış (Streamline) Baskın";
+                desc.textContent = "Sürtünme sıfırlandı, kayma verimliliği ve omurga dalgası üst seviyede.";
+            }
+
+            if(save) {
+                localStorage.setItem('sw_st', st);
+                localStorage.setItem('sw_lc', lc);
+                localStorage.setItem('sw_fl', fl);
+            }
+        }
+
+        function autoBalance() {
+            document.getElementById('rangeStart').value = 33;
+            document.getElementById('rangeLactate').value = 33;
+            document.getElementById('rangeFlow').value = 34;
+            updateMatrix();
+        }
+
+        function presetMode(mode) {
+            if(mode === 'sprint') {
+                document.getElementById('rangeStart').value = 40;
+                document.getElementById('rangeLactate').value = 45;
+                document.getElementById('rangeFlow').value = 15;
+            }
+            updateMatrix();
+        }
+
+        function saveState() {
+            updateMatrix();
+            alert("Yüzme sprint matrisi tarayıcı hafızasına kaydedildi!");
+        }
+
+        function resetValues() {
+            document.getElementById('rangeStart').value = 33;
+            document.getElementById('rangeLactate').value = 33;
+            document.getElementById('rangeFlow').value = 34;
+            updateMatrix();
+        }
+
+        window.onload = function() {
+            if(localStorage.getItem('sw_st') !== null) {
+                document.getElementById('rangeStart').value = localStorage.getItem('sw_st');
+                document.getElementById('rangeLactate').value = localStorage.getItem('sw_lc');
+                document.getElementById('rangeFlow').value = localStorage.getItem('sw_fl');
+                updateMatrix(false);
+            }
+        }
+    </script>
+</body>
+</html>
+
