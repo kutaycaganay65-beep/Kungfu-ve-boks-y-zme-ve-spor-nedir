@@ -23,7 +23,102 @@ Denge bozulduğunda en yüksek değer sistemi yönetir:
  * Boks Baskın (p_b en yüksek): Patlayıcı hız devreye girer.
  * Yüzme Baskın (p_s en yüksek): Akış ve nefes dayanıklılığı mühürlenir.
 IV. SAYISAL SENARYO MATRİSİ
-| Senaryo Adı | K (Kung Fu) | B (Boks) | S (Yüzme) | Sapma (\Delta) | Sistem Durumu |
+| Senaryo Adı | K (Kung Fu) | B (Boks) | S (Yüzme) | Sapma (\Delta) | Sistem Durumu |<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ASİL DENGE KONSOLU • Özün Kusursuzluğu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 50% 0%, rgba(250, 204, 21, .12), #020408 50%, #000000 100%);
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+        .cinzel { font-family: 'Cinzel', serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .glass {
+            background: rgba(10, 14, 26, 0.85);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(250, 204, 21, 0.25);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(250, 204, 21, 0.05);
+        }
+        .glow-gold { text-shadow: 0 0 30px rgba(250, 204, 21, 0.7); }
+    </style>
+</head>
+<body class="min-h-screen pb-20 p-4 sm:p-8 flex flex-col items-center justify-center">
+
+    <div class="max-w-3xl w-full space-y-6">
+
+        <!-- BAŞLIK KARTI -->
+        <div class="glass p-8 rounded-3xl text-center space-y-3 relative overflow-hidden">
+            <div class="absolute -right-20 -top-20 w-64 h-64 bg-yellow-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="text-xs text-yellow-400 font-bold mono tracking-widest">0 = 0 • ÖZÜN VE NİYETİN KUSURSUZ YASASI</div>
+            <h1 class="text-3xl sm:text-4xl font-black text-white cinzel glow-gold">İyilik ve Asil Denge</h1>
+            <p class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto leading-relaxed pt-2">
+                "İnsan ne yaparsa yapsın neden pisliğe ve kötü duruma düşmez, hep güzel kalır?" Çünkü kök sağlamsa, niyet hakikatle örülmüşse; dışarıdaki kaos içeri sızamaz. Adam adamadır, özü de sözü de bir olan kirlenmez.
+            </p>
+        </div>
+
+        <!-- İLHAM / SÖZLÜ ANALİZ SEKMESİ -->
+        <div class="glass p-8 rounded-3xl space-y-6">
+            <div class="border-b border-slate-800 pb-4">
+                <h3 class="text-lg font-bold text-white cinzel">Asil Kalmanın 4 Temel Sütunu</h3>
+                <p class="text-xs text-slate-400 mt-1">İnsanın özünü koruyan ve her koşulda güzeli üreten mekanizma.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+                <div class="p-5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+                    <div class="text-2xl">🌱</div>
+                    <h4 class="font-bold text-yellow-400 text-sm cinzel">1. Köklerin Sağlamlığı</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Ağaç kökünden beslenir. Niyeti hak olan insan, karşılaştığı çamuru yalnızca köklerini güçlendiren bir gübreye dönüştürür; içine almaz.
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+                    <div class="text-2xl">🛡️</div>
+                    <h4 class="font-bold text-yellow-400 text-sm cinzel">2. Teşko Tanımaz Duruş</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Etraftaki ucuzluklara ve yapay krizlere prim vermemek. Adam adamla iş yapar; seviyesi düşük olanın enerjisi asil insana çarpıp dağılır.
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+                    <div class="text-2xl">⚖️</div>
+                    <h4 class="font-bold text-yellow-400 text-sm cinzel">3. 0 = 0 Denge Yasası</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Evrende enerji denktir. Kötülük dışarıda kalır, içeri giren saf niyet ise her zaman dışarıya güzellik olarak yansır. İçerideki denge bozulmaz.
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+                    <div class="text-2xl">⚡</div>
+                    <h4 class="font-bold text-yellow-400 text-sm cinzel">4. Akışın Kusursuzluğu</h4>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        Su nasıl aktığı taşı temizlerse, hakiki bir irade de maruz kaldığı her durumu kendi saflığında arındırır. Kötülük tutunacak yer bulamaz.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- İLHAM VERİCİ SÖZ -->
+        <div class="glass p-6 rounded-3xl text-center space-y-3 border-yellow-500/40">
+            <div class="text-3xl">✨</div>
+            <blockquote class="text-base sm:text-lg text-slate-200 italic font-light leading-relaxed">
+                "Özünde merhamet ve inanç taşıyan insan, etrafı ne kadar karanlık olursa olsun kendi güneşini taşır. Kirlenmez; çünkü aydınlık, karanlığı yutar."
+            </blockquote>
+            <div class="text-xs text-yellow-400 mono pt-2">Adam adamadır • Teşko tanımaz • Özü güzel olan güzel kalır.</div>
+        </div>
+
+    </div>
+
+</body>
+</html>
+
 |---|---|---|---|---|---|
 | İdeal Denge | 33 | 33 | 34 | 2 | ⚡ Kusursuz Senkro (0=0) |
 | Patlama Modu | 20 | 70 | 10 | 60 | 🥊 Boks Odaklı (p_b = 70\%) |
